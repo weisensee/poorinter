@@ -69,7 +69,8 @@
         "standard": "standard src/**/*.js",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "deploy": "yarn build && firebase use poop-rinter && firebase deploy --only hosting"
     },
     "eslintConfig": {
         "extends": "react-app"
