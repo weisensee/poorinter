@@ -7,9 +7,7 @@ import 'firebase/firestore';
 import 'firebase/messaging';
 import 'firebase/performance';
 
-const firebaseApp = firebase.initializeApp(
-    process.env.NODE_ENV !== 'production' ? config.firebase_config_dev : config.firebase_config
-);
+const firebaseApp = firebase.initializeApp(config.firebase_config);
 
 firebase
     .firestore()
