@@ -8,9 +8,10 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './styles';
 import { saveNewGCode } from '../utils/gCode';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import ExistingLetters from '../components/ExistingLetters';
 
 interface Props {
     classes: any;
@@ -28,12 +29,9 @@ class LettersPage extends Component<Props, State> {
         super(props);
         this.state = { letter: '', loading: false, gcode: '' };
     }
-    // Pick<State, "letter" | "gcode">
-    handleChange = (
-        key: 'letter' | 'gcode',
-        event: React.ChangeEvent<HTMLInputElement>
-        // @ts-ignore
-    ) => this.setState({ [`${key}`]: event.target.value });
+
+    // @ts-ignore
+    handleChange = (key: 'letter' | 'gcode', value: string) => this.setState({ [key]: value });
 
     saveGCode = () =>
         this.setState({ loading: true }, () =>
@@ -60,87 +58,95 @@ class LettersPage extends Component<Props, State> {
                 </Helmet>
                 <AppBar position="static">
                     <Toolbar disableGutters>
-                        <div style={{ flex: 1 }}>
-                            <Button
-                                className={classes.button}
-                                variant="outlined"
-                                color="secondary"
-                                onClick={() => {
-                                    history.push('/');
-                                }}
-                            >
-                                {'Generate New G-Code'}
-                            </Button>
-                        </div>
+                        <Button
+                            className={classes.button}
+                            variant="outlined"
+                            color="secondary"
+                            onClick={() => {
+                                history.push('/');
+                            }}
+                        >
+                            {'Generate New G-Code'}
+                        </Button>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="inherit"
+                            className={classes.title}
+                        >
+                            {'Enter G Code for Letters'}
+                        </Typography>
                     </Toolbar>
                 </AppBar>
                 <div className={classes.root}>
-                    <div className={classes.hero}>
-                        <div className={classes.content}>
-                            <div className={classes.text}>
-                                <Typography
-                                    variant="h3"
-                                    align="center"
-                                    component="h1"
-                                    color="inherit"
-                                    gutterBottom
-                                    className={classes.title}
-                                >
-                                    {'Enter G Code for Letters'}
-                                </Typography>
-                                <Typography
-                                    variant="h5"
-                                    component="h2"
-                                    color="inherit"
-                                    gutterBottom
-                                    className={classes.h5}
-                                >
-                                    {`Enter text, Press 'Save'`}
-                                </Typography>
-                                <TextField
-                                    id="letter"
-                                    required
-                                    className={classes.textField}
-                                    label="Letter"
-                                    margin="normal"
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        this.handleChange('letter', e)
-                                    }
-                                    value={this.state.letter}
-                                    variant="outlined"
-                                />
-                                <TextField
-                                    id="g-code"
-                                    required
-                                    multiline
-                                    className={classes.textField}
-                                    label="G-Code"
-                                    margin="normal"
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        this.handleChange('gcode', e)
-                                    }
-                                    value={this.state.gcode}
-                                    variant="outlined"
-                                />
-                                {this.state.loading ? (
-                                    <CircularProgress
-                                        size={35}
-                                        className={classes.buttonProgress}
-                                    />
-                                ) : (
-                                    <Button
-                                        onClick={this.saveGCode}
-                                        className={classes.button}
-                                        variant="outlined"
-                                        disabled={!this.state.letter || !this.state.gcode}
-                                        color="primary"
+                    <Grid container spacing={3}>
+                        <Grid item xs={6}>
+                            <div className={classes.content}>
+                                <div className={classes.text}>
+                                    <Typography
+                                        variant="h5"
+                                        component="h2"
+                                        color="inherit"
+                                        className={classes.h5}
                                     >
-                                        {'Save'}
-                                    </Button>
-                                )}
+                                        {`Enter text, Press 'Save'`}
+                                    </Typography>
+                                    <TextField
+                                        id="letter"
+                                        required
+                                        className={classes.textField}
+                                        label="Letter"
+                                        margin="normal"
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                            this.handleChange(
+                                                'letter',
+                                                e.target.value.slice(-1).toUpperCase()
+                                            )
+                                        }
+                                        value={this.state.letter}
+                                        variant="outlined"
+                                    />
+                                    <TextField
+                                        id="g-code"
+                                        required
+                                        multiline
+                                        className={classes.textField}
+                                        label="G-Code"
+                                        margin="normal"
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                            this.handleChange('gcode', e.target.value)
+                                        }
+                                        value={this.state.gcode}
+                                        variant="outlined"
+                                    />
+                                    {this.state.loading ? (
+                                        <CircularProgress
+                                            size={35}
+                                            className={classes.buttonProgress}
+                                        />
+                                    ) : (
+                                        <Button
+                                            onClick={this.saveGCode}
+                                            className={classes.button}
+                                            variant="outlined"
+                                            disabled={!this.state.letter || !this.state.gcode}
+                                            color="primary"
+                                        >
+                                            {'Save'}
+                                        </Button>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <div className={classes.content}>
+                                <ExistingLetters
+                                    classes={this.props.classes}
+                                    theme={this.props.theme}
+                                />
+                            </div>
+                        </Grid>
+                    </Grid>
                 </div>
             </div>
         );

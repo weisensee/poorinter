@@ -4,18 +4,12 @@ import React, { Component } from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Helmet } from 'react-helmet';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './styles';
 import { generateGCode } from '../utils/gCode';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import { Tooltip } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import LockIcon from '@material-ui/icons/Lock';
-// @ts-ignore
-import { GitHubIcon } from 'rmw-shell/lib/components/Icons';
-import Letters from './Letters';
 
 interface Props {
     classes: any;
@@ -60,18 +54,24 @@ class LandingPage extends Component<Props, State> {
                 </Helmet>
                 <AppBar position="static">
                     <Toolbar disableGutters>
-                        <div style={{ flex: 1 }}>
-                            <Button
-                                className={classes.button}
-                                variant="outlined"
-                                color="secondary"
-                                onClick={() => {
-                                    history.push('/letters');
-                                }}
-                            >
-                                {'Enter Letter Code'}
-                            </Button>
-                        </div>
+                        <Button
+                            className={classes.button}
+                            variant="outlined"
+                            color="secondary"
+                            onClick={() => {
+                                history.push('/letters');
+                            }}
+                        >
+                            {'Enter Letter Code'}
+                        </Button>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="inherit"
+                            className={classes.title}
+                        >
+                            {'G Code Generator'}
+                        </Typography>
                     </Toolbar>
                 </AppBar>
 
@@ -79,16 +79,6 @@ class LandingPage extends Component<Props, State> {
                     <div className={classes.hero}>
                         <div className={classes.content}>
                             <div className={classes.text}>
-                                <Typography
-                                    variant="h3"
-                                    align="center"
-                                    component="h1"
-                                    color="inherit"
-                                    gutterBottom
-                                    className={classes.title}
-                                >
-                                    {'G Code Generator'}
-                                </Typography>
                                 <Typography
                                     variant="h5"
                                     component="h2"
