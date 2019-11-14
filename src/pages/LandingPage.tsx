@@ -10,6 +10,7 @@ import { styles } from './styles';
 import { generateGCode } from '../utils/gCode';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface Props {
     classes: any;
@@ -18,26 +19,27 @@ interface Props {
 }
 interface State {
     gCode: string;
+    loading: boolean;
     text: string;
 }
 
 class LandingPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { text: '', gCode: '' };
+        this.state = { text: '', gCode: '', loading: false };
     }
 
-    // const [name, setText] = React.useState('');
-
-    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         this.setState({ text: event.target.value });
-    };
-    generateGCode = () => {
-        this.setState({ gCode: generateGCode(this.state.text) });
-    };
+
+    generateGCode = () =>
+        this.setState({ loading: true }, async () =>
+            this.setState({ gCode: await generateGCode(this.state.text), loading: false })
+        );
+
     render() {
         const { classes, history, theme } = this.props;
-        const { gCode } = this.state;
+        const { gCode, loading } = this.state;
         return (
             <div className={classes.main}>
                 <Helmet>
@@ -97,14 +99,21 @@ class LandingPage extends Component<Props, State> {
                                     onChange={this.handleChange}
                                     variant="outlined"
                                 />
-                                <Button
-                                    onClick={this.generateGCode}
-                                    className={classes.button}
-                                    variant="outlined"
-                                    color="primary"
-                                >
-                                    {'Generate'}
-                                </Button>
+                                {loading ? (
+                                    <CircularProgress
+                                        size={35}
+                                        className={classes.buttonProgress}
+                                    />
+                                ) : (
+                                    <Button
+                                        onClick={this.generateGCode}
+                                        className={classes.button}
+                                        variant="outlined"
+                                        color="primary"
+                                    >
+                                        {'Generate'}
+                                    </Button>
+                                )}
                                 {gCode.length ? (
                                     <Paper
                                         className={classes.root}
@@ -113,7 +122,12 @@ class LandingPage extends Component<Props, State> {
                                         <Typography variant="h5" component="h3">
                                             Generated G Code:
                                         </Typography>
-                                        <Typography component="p">{gCode}</Typography>
+                                        <Typography
+                                            component="p"
+                                            style={{ whiteSpace: 'pre-wrap' }}
+                                        >
+                                            {gCode}
+                                        </Typography>
                                     </Paper>
                                 ) : null}
                             </div>
