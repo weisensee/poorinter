@@ -4,20 +4,9 @@ import Brightness7 from '@material-ui/icons/Brightness7';
 import DaschboardIcon from '@material-ui/icons/Dashboard';
 import LockIcon from '@material-ui/icons/Lock';
 import React from 'react';
-import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
 
 const getMenuItems = props => {
-    const {
-        switchNightMode,
-        intl,
-        themeSource,
-        auth,
-        deferredPrompt,
-        isAppInstallable,
-        isAppInstalled,
-        isAuthMenu,
-        handleSignOut
-    } = props;
+    const { switchNightMode, intl, themeSource, auth, isAuthMenu, handleSignOut } = props;
 
     const isAuthorised = auth.isAuthorised;
 
@@ -58,14 +47,6 @@ const getMenuItems = props => {
                 id: themeSource.isNightModeOn ? 'day_mode' : 'night_mode'
             }),
             leftIcon: themeSource.isNightModeOn ? <Brightness7 /> : <Brightness2 />
-        },
-        {
-            visible: isAppInstallable && !isAppInstalled,
-            onClick: () => {
-                deferredPrompt.prompt();
-            },
-            primaryText: intl.formatMessage({ id: 'install' }),
-            leftIcon: <VerticalAlignBottomIcon />
         }
     ];
 };

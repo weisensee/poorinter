@@ -111,6 +111,7 @@ class LettersPage extends Component<Props, State> {
                                         required
                                         multiline
                                         className={classes.textField}
+                                        style={{ width: '100%' }}
                                         label="G-Code"
                                         margin="normal"
                                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
