@@ -4,18 +4,13 @@ import React, { Component } from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Helmet } from 'react-helmet';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './styles';
-import { generateGCode } from '../utils/gCode';
+import { saveNewGCode } from '../utils/gCode';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import { Tooltip } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import LockIcon from '@material-ui/icons/Lock';
-// @ts-ignore
-import { GitHubIcon } from 'rmw-shell/lib/components/Icons';
-import Letters from './Letters';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface Props {
     classes: any;
@@ -23,27 +18,32 @@ interface Props {
     theme: any;
 }
 interface State {
-    gCode: string;
-    text: string;
+    letter: string;
+    loading: boolean;
+    gcode: string;
 }
 
-class LandingPage extends Component<Props, State> {
+class LettersPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { text: '', gCode: '' };
+        this.state = { letter: '', loading: false, gcode: '' };
     }
+    // Pick<State, "letter" | "gcode">
+    handleChange = (
+        key: 'letter' | 'gcode',
+        event: React.ChangeEvent<HTMLInputElement>
+        // @ts-ignore
+    ) => this.setState({ [`${key}`]: event.target.value });
 
-    // const [name, setText] = React.useState('');
+    saveGCode = () =>
+        this.setState({ loading: true }, () =>
+            saveNewGCode(this.state.letter, this.state.gcode).then(() =>
+                this.setState({ letter: '', loading: false, gcode: '' })
+            )
+        );
 
-    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ text: event.target.value });
-    };
-    generateGCode = () => {
-        this.setState({ gCode: generateGCode(this.state.text) });
-    };
     render() {
         const { classes, history, theme } = this.props;
-        const { gCode } = this.state;
         return (
             <div className={classes.main}>
                 <Helmet>
@@ -66,15 +66,14 @@ class LandingPage extends Component<Props, State> {
                                 variant="outlined"
                                 color="secondary"
                                 onClick={() => {
-                                    history.push('/letters');
+                                    history.push('/');
                                 }}
                             >
-                                {'Enter Letter Code'}
+                                {'Generate New G-Code'}
                             </Button>
                         </div>
                     </Toolbar>
                 </AppBar>
-
                 <div className={classes.root}>
                     <div className={classes.hero}>
                         <div className={classes.content}>
@@ -87,7 +86,7 @@ class LandingPage extends Component<Props, State> {
                                     gutterBottom
                                     className={classes.title}
                                 >
-                                    {'G Code Generator'}
+                                    {'Enter G Code for Letters'}
                                 </Typography>
                                 <Typography
                                     variant="h5"
@@ -96,36 +95,49 @@ class LandingPage extends Component<Props, State> {
                                     gutterBottom
                                     className={classes.h5}
                                 >
-                                    {`Enter text, Press 'Generate'`}
+                                    {`Enter text, Press 'Save'`}
                                 </Typography>
                                 <TextField
-                                    id="outlined-basic"
+                                    id="letter"
                                     required
                                     className={classes.textField}
-                                    label="Tweet Text"
+                                    label="Letter"
                                     margin="normal"
-                                    onChange={this.handleChange}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                        this.handleChange('letter', e)
+                                    }
+                                    value={this.state.letter}
                                     variant="outlined"
                                 />
-                                <Button
-                                    onClick={this.generateGCode}
-                                    className={classes.button}
+                                <TextField
+                                    id="g-code"
+                                    required
+                                    multiline
+                                    className={classes.textField}
+                                    label="G-Code"
+                                    margin="normal"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                        this.handleChange('gcode', e)
+                                    }
+                                    value={this.state.gcode}
                                     variant="outlined"
-                                    color="primary"
-                                >
-                                    {'Generate'}
-                                </Button>
-                                {gCode.length ? (
-                                    <Paper
-                                        className={classes.root}
-                                        style={{ marginTop: '5rem', padding: '2rem' }}
+                                />
+                                {this.state.loading ? (
+                                    <CircularProgress
+                                        size={35}
+                                        className={classes.buttonProgress}
+                                    />
+                                ) : (
+                                    <Button
+                                        onClick={this.saveGCode}
+                                        className={classes.button}
+                                        variant="outlined"
+                                        disabled={!this.state.letter || !this.state.gcode}
+                                        color="primary"
                                     >
-                                        <Typography variant="h5" component="h3">
-                                            Generated G Code:
-                                        </Typography>
-                                        <Typography component="p">{gCode}</Typography>
-                                    </Paper>
-                                ) : null}
+                                        {'Save'}
+                                    </Button>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -135,4 +147,4 @@ class LandingPage extends Component<Props, State> {
     }
 }
 // @ts-ignore
-export default withRouter(withStyles(styles, { withTheme: true })(LandingPage));
+export default withRouter(withStyles(styles, { withTheme: true })(LettersPage));
