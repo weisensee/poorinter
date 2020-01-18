@@ -35,8 +35,10 @@ export default class ExistingLetters extends PureComponent<Props, State> {
         const { classes } = this.props;
         const { allLetters, selectedLetter } = this.state;
 
-        let menuItems = Object.keys(allLetters).map(letter => (
-            <MenuItem value={letter}>{letter.toUpperCase()}</MenuItem>
+        let menuItems = Object.keys(allLetters).map((letter, i) => (
+            <MenuItem key={i} value={letter}>
+                {letter.toUpperCase()}
+            </MenuItem>
         ));
 
         menuItems.unshift(
