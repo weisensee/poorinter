@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './styles';
-import { generateGCode } from '../utils/gCode';
+import { generateSvgGCode } from '../utils/gCode';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -18,7 +18,7 @@ interface Props {
 	theme: any;
 }
 interface State {
-	gCode: string;
+	gCode: any;
 	loading: boolean;
 	text: string;
 }
@@ -34,7 +34,7 @@ class LandingPage extends Component<Props, State> {
 
 	generateGCode = () =>
 		this.setState({ loading: true }, async () =>
-			this.setState({ gCode: await generateGCode(this.state.text), loading: false })
+			this.setState({ gCode: await generateSvgGCode(this.state.text), loading: false })
 		);
 
 	render() {
@@ -114,7 +114,7 @@ class LandingPage extends Component<Props, State> {
 										{'Generate'}
 									</Button>
 								)}
-								{gCode.length ? (
+								{gCode && gCode.length ? (
 									<Paper
 										className={classes.root}
 										style={{ marginTop: '5rem', padding: '2rem' }}
