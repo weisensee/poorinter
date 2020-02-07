@@ -26,17 +26,17 @@ const app = express();
 app.use(cors({ origin: true }));
 
 const getSVG = (request: { body: string }, response: { send: (arg0: any) => void }) => {
-	const body = JSON.parse(request.body);
+    const body = JSON.parse(request.body);
 
-	const textToSVG = TextToSVG.loadSync(DEFAULT_FONT);
+    const textToSVG = TextToSVG.loadSync(DEFAULT_FONT);
 
-	const attributes = { fill: 'black', stroke: 'black' };
-	const options = { x: 0, y: 0, fontSize: 72, anchor: 'top', attributes: attributes };
+    const attributes = { fill: 'black', stroke: 'black' };
+    const options = { x: 0, y: 0, fontSize: 72, anchor: 'top', attributes: attributes };
 
-	const svg = textToSVG.getSVG(body.text || 'Trump Test', options);
-	console.log(svg);
+    const svg = textToSVG.getSVG(body.text || 'Trump Test', options);
+    console.log(svg);
 
-	response.send(svg);
+    response.send(svg);
 };
 
 // const  svgToGcode = ()=>{
@@ -49,17 +49,17 @@ const getSVG = (request: { body: string }, response: { send: (arg0: any) => void
 // }
 
 const hersheySVG = (request: { body: string }, response: { send: (arg0: any) => void }) => {
-	const body = JSON.parse(request.body);
+    const body = JSON.parse(request.body);
 
-	const svg = hersheyText.renderTextSVG(body.text, {
-		id: 'mytext',
-		font: 'futural',
-		charWidth: 10,
-		pos: { x: 50, y: 50 }
-	});
-	console.log(svg);
+    const svg = hersheyText.renderTextSVG(body.text, {
+        id: 'mytext',
+        font: 'futural',
+        charWidth: 10,
+        pos: { x: 50, y: 50 }
+    });
+    console.log(svg);
 
-	response.send(svg);
+    response.send(svg);
 };
 
 app.post('/textToSVG', getSVG);

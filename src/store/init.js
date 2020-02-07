@@ -1,8 +1,8 @@
-import config from '../config'
+import config from '../config';
 
 export const initState = {
-  auth: { isAuthorised: false },
-  ...config.initial_state
-}
+    auth: { isAuthorised: false },
+    ...config.initial_state
+};
 
-export default initState
+export default initState;
