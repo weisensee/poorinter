@@ -1,6 +1,8 @@
 import * as functions from 'firebase-functions';
 const cors = require('cors');
 const express = require('express');
+const helmet = require('helmet');
+const morgan = require('morgan');
 const TextToSVG = require('text-to-svg');
 const hersheyText = require('hersheytext');
 // const DEFAULT_FONT = require('path').join(__dirname, '/fonts/SkarpaLt.ttf');
@@ -31,6 +33,8 @@ const DEFAULT_FONT = require('path').join(__dirname, '/fonts/1CamBam_Stick_3.ttf
 
 const app = express();
 app.use(cors({ origin: true }));
+app.use(helmet({ frameguard: false }));
+app.use(morgan('combined'));
 
 const getSVG = (request: { body: string }, response: { send: (arg0: any) => void }) => {
     const body = JSON.parse(request.body);

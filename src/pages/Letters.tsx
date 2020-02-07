@@ -60,6 +60,7 @@ class LettersPage extends Component<Props, State> {
                     <Toolbar disableGutters>
                         <Button
                             className={classes.button}
+                            style={{ margin: '.5rem' }}
                             variant="contained"
                             color="secondary"
                             onClick={() => history.push('/')}
