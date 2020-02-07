@@ -60,11 +60,9 @@ class LettersPage extends Component<Props, State> {
                     <Toolbar disableGutters>
                         <Button
                             className={classes.button}
-                            variant="outlined"
+                            variant="contained"
                             color="secondary"
-                            onClick={() => {
-                                history.push('/');
-                            }}
+                            onClick={() => history.push('/')}
                         >
                             {'Generate New G-Code'}
                         </Button>

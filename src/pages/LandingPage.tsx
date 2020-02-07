@@ -39,6 +39,17 @@ class LandingPage extends Component<Props, State> {
             async () => this.setState({ gCode: await textToSVG(this.state.text), loading: false })
         );
 
+    downloadSVG = () => {
+        const svgBlob = new Blob([this.state.gCode], { type: 'image/svg+xml;charset=utf-8' });
+        const svgUrl = URL.createObjectURL(svgBlob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = svgUrl;
+        downloadLink.download = 'generatedSVG.svg';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+
     render() {
         const { classes, history, theme } = this.props;
         const { gCode, loading } = this.state;
@@ -60,11 +71,9 @@ class LandingPage extends Component<Props, State> {
                     <Toolbar disableGutters>
                         <Button
                             className={classes.button}
-                            variant="outlined"
+                            variant="contained"
                             color="secondary"
-                            onClick={() => {
-                                history.push('/letters');
-                            }}
+                            onClick={() => history.push('/letters')}
                         >
                             {'Enter Letter Code'}
                         </Button>
@@ -122,10 +131,20 @@ class LandingPage extends Component<Props, State> {
                                         style={{ marginTop: '5rem', padding: '2rem' }}
                                     >
                                         <Typography variant="h5" component="h3">
-                                            Generated G Code:
+                                            Generated SVG:
                                         </Typography>
 
                                         <div dangerouslySetInnerHTML={{ __html: gCode }}></div>
+
+                                        <Button
+                                            onClick={this.downloadSVG}
+                                            className={classes.button}
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            {'Download'}
+                                        </Button>
+
                                         {/* <div
                                             dangerouslySetInnerHTML={{
                                                 __html: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="450" height="280">${gCode}</svg>`
