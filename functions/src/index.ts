@@ -3,7 +3,14 @@ const cors = require('cors');
 const express = require('express');
 const TextToSVG = require('text-to-svg');
 const hersheyText = require('hersheytext');
-const DEFAULT_FONT = require('path').join(__dirname, '/fonts/SkarpaLt.ttf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/SkarpaLt.ttf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/AVHersheyComplexMedium.otf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/OLFTestFont-Regular.ttf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/OLFTestFontOC-Regular.opf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/OLFTestFontOC-Regular.ttf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/OLFTestFontSP-Regular.ttf');
+// const DEFAULT_FONT = require('path').join(__dirname, '/fonts/SDstroke-latin.otf');
+const DEFAULT_FONT = require('path').join(__dirname, '/fonts/1CamBam_Stick_3.ttf');
 
 // const util = require('util');
 // const exec = util.promisify(require('child_process').exec);
