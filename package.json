@@ -66,7 +66,7 @@
     "scripts": {
         "check": "npm-check -s -u",
         "analyze": "source-map-explorer build/static/js/main.*",
-        "start": "react-scripts start",
+        "start": "PORT=3002 react-scripts start",
         "standard": "standard src/**/*.js",
         "build": "react-scripts build",
         "test": "react-scripts test",
