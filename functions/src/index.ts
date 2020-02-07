@@ -17,20 +17,6 @@ const DEFAULT_FONT = require('path').join(__dirname, '/fonts/1CamBam_Stick_3.ttf
 // const util = require('util');
 // const exec = util.promisify(require('child_process').exec);
 
-// const whitelist = ['http://localhost:3000/', 'http://localhost:5000/'];
-// const corsOptions = {
-//     origin: function(
-//         origin: string,
-//         callback: { (arg0: null, arg1: boolean): void; (arg0: Error): void }
-//     ) {
-//         if (whitelist.indexOf(origin) !== -1) {
-//             callback(null, true);
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     }
-// };
-
 const app = express();
 app.use(cors({ origin: true }));
 app.use(helmet({ frameguard: false }));
