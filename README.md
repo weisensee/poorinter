@@ -2,10 +2,8 @@
 
 generates G Code from text string
 
-# ‌‌ [![LOGO][logo-image]][logo-url] React Most Wanted
+# React Most Wanted
 
-[![Build Status][travis-image]][travis-url]
-[![Dependency Status][daviddm-image]][daviddm-url]
 [![License][license-image]][license-url]
 [![Code Style][code-style-image]][code-style-url]
 
@@ -79,27 +77,6 @@ We have you covered. Here is a [codelab](https://start-with-rmw.web.app/#0) that
 
 It depends on your problem. If you have a question please join our [gitter room](https://gitter.im/react-most-wanted/Lobby). If you notice an issue in the project don't hesitate to fill out an issue report to this project [here](https://github.com/TarikHuber/react-most-wanted/issues).
 
-## I like this. Can I help somehow?
-
-YEEEEEEES :smile: Everyone is welcome to send PRs and if you don't know where to start just write to me on [twitter](https://twitter.com/TarikHuber). There is always some work to do.
-
-And if you don't have time to code with us show some :blue_heart: and give this project a :star: and tell the :earth_africa: about it
-
-## There are way too much :smile: in this README. Are you crazy?
-
-YES! :trollface:
-
-## Thanks
-
-[<img src="https://www.browserstack.com/images/mail/browserstack-logo-footer.png" width="120">](https://www.browserstack.com/)
-
-Thank you to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test in real browsers.
-Thanks to @SiradDev for creating the logo for this project :smile:
-
-## TO DO
-
--   [ ] finish tests
-
 ## License
 
 MIT
@@ -114,9 +91,3 @@ MIT
 [license-url]: https://github.com/TarikHuber/react-most-wanted/master/LICENSE
 [code-style-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [code-style-url]: https://github.com/prettier/prettier
-
-## Support on Beerpay
-
-Hey dude! Help me out with a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/TarikHuber/react-most-wanted/badge.svg?style=beer-square)](https://beerpay.io/TarikHuber/react-most-wanted) [![Beerpay](https://beerpay.io/TarikHuber/react-most-wanted/make-wish.svg?style=flat-square)](https://beerpay.io/TarikHuber/react-most-wanted?focus=wish)

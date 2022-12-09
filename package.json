@@ -18,8 +18,8 @@
         "a2hs": "1.x",
         "chart.js": "2.x",
         "downshift": "3.x",
-        "firebase": "7.x",
-        "firebaseui": "4.x",
+        "firebase": "8.x",
+        "firebaseui": "5.x",
         "fireform": "1.x",
         "firekit": "1.x",
         "firekit-provider": "1.x",
@@ -32,7 +32,6 @@
         "material-ui-image": "3.x",
         "moment": "2.x",
         "muishift": "1.x",
-        "prop-types": "15.x",
         "react": "16.x",
         "react-chartjs-2": "2.x",
         "react-countup": "4.x",
@@ -61,7 +60,7 @@
         "rmw-shell": "7.x",
         "selenium-webdriver": "^4.0.0-alpha.1",
         "source-map-explorer": "2.x",
-        "typescript": "^3.7.2"
+        "typescript": "~4.3.0"
     },
     "scripts": {
         "check": "npm-check -s -u",
