@@ -2,6 +2,9 @@
     "name": "poorinter",
     "version": "0.1.0",
     "private": true,
+    "resolutions": {
+        "css-select": "^4"
+    },
     "dependencies": {
         "@formatjs/intl-relativetimeformat": "11.2.6",
         "@material-ui/core": "4.x",
