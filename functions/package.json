@@ -15,7 +15,7 @@
     "main": "lib/index.js",
     "dependencies": {
         "cors": "^2.8.5",
-        "express": "^4.17.3",
+        "express": "^4.19.2",
         "firebase-functions": "^4.4.1",
         "helmet": "^7.0.0",
         "hersheytext": "^2.0.0",
