@@ -1,17 +1,17 @@
-import React from 'react';
+// import React from 'react';
 import Loadable from 'react-loadable';
 import getMenuItems from './menuItems';
-import LoadingComponent from 'rmw-shell/lib/components/LoadingComponent';
+// import LoadingComponent from 'rmw-shell/lib/components/LoadingComponent';
 import locales from './locales';
 import routes from './routes';
 import themes from './themes';
 import grants from './grants';
 
-const Loading = () => <LoadingComponent />;
+const Loading = () => null;
 
 const LPAsync = Loadable({
     loader: () => import('../../src/pages'),
-    loading: Loading
+    loading: Loading,
 });
 
 const config = {
@@ -23,7 +23,7 @@ const config = {
         storageBucket: 'poop-rinter.appspot.com',
         messagingSenderId: '1026480113680',
         appId: '1:1026480113680:web:8ffefde4ed05b3cb2d2295',
-        measurementId: 'G-PWS7M0E8PP'
+        measurementId: 'G-PWS7M0E8PP',
     },
     firebase_providers: [
         'google.com',
@@ -31,14 +31,14 @@ const config = {
         'twitter.com',
         'github.com',
         'password',
-        'phone'
+        'phone',
     ],
     initial_state: {
         themeSource: {
             isNightModeOn: false,
-            source: 'light'
+            source: 'light',
         },
-        locale: 'en'
+        locale: 'en',
     },
     drawer_width: 256,
     locales,
@@ -47,7 +47,7 @@ const config = {
     routes,
     getMenuItems,
     firebaseLoad: () => import('./firebase'),
-    landingPage: LPAsync
+    landingPage: LPAsync,
 };
 
 export default config;
