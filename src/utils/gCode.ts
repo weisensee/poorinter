@@ -1,5 +1,14 @@
 import firebaseApp from '../config/firebase';
-import firebase from 'firebase/app';
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    QuerySnapshot,
+    setDoc,
+    doc,
+    query,
+    onSnapshot,
+} from 'firebase/firestore';
 const __DEV__ = process.env.NODE_ENV !== 'production';
 console.log(`__DEV__: ${__DEV__}`);
 const BASE_URL = __DEV__
@@ -8,9 +17,9 @@ const BASE_URL = __DEV__
 const TEXT_TO_SVG_URL = `${BASE_URL}/textToSVG/`;
 const HERSHEYS_URL = `${BASE_URL}/hersheySVG/`;
 
-const LETTERS_REF = firebaseApp.firestore().collection('letters');
+const LETTERS_REF = collection(getFirestore(), 'letters');
 
-const mapLettersToObject = (snap: firebase.firestore.QuerySnapshot) => {
+const mapLettersToObject = (snap: QuerySnapshot) => {
     let codedLetters: any = {};
     snap.forEach((doc: any) => (codedLetters[doc.id.toUpperCase()] = doc.data().code));
     return codedLetters;
@@ -64,7 +73,7 @@ export const generateGCode = async (text: string) => {
     const textToGenerate = text.toUpperCase();
     let Gcode = '';
     let codedLetters: any = {};
-    await LETTERS_REF.get().then((snap) => (codedLetters = mapLettersToObject(snap)));
+    await getDocs(LETTERS_REF).then((snap) => (codedLetters = mapLettersToObject(snap)));
 
     for (let index = 0; index < textToGenerate.length; index++) {
         const char = textToGenerate.charAt(index);
@@ -75,7 +84,7 @@ export const generateGCode = async (text: string) => {
 };
 
 export const saveNewGCode = (letter: string, newgcode: string) =>
-    firebaseApp.firestore().collection('letters').doc(letter).set({ code: newgcode });
+    setDoc(doc(getFirestore(), `letters/${letter}`), { code: newgcode });
 
 export const getAllLetters = (onUpdate: (value: any) => void) =>
-    LETTERS_REF.onSnapshot((snap) => onUpdate(mapLettersToObject(snap)), console.error);
+    onSnapshot(query(LETTERS_REF), (snap) => onUpdate(mapLettersToObject(snap)), console.error);
