@@ -20,7 +20,7 @@
         "react-helmet": "5.x",
         "react-intl": "3.x",
         "react-loadable": "5.x",
-        "react-router": "5.x",
+        "react-router": "7.x",
         "react-router-dom": "5.x",
         "react-scripts": "5.x",
         "redux": "4.2.1",
